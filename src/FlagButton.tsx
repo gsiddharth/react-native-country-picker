@@ -32,6 +32,7 @@ type FlagWithSomethingProp = Pick<
   | 'withCountryNameButton'
   | 'withCurrencyButton'
   | 'withCallingCodeButton'
+  | 'buttonTextColor'
 >
 
 const FlagWithSomething = memo(
@@ -40,7 +41,8 @@ const FlagWithSomething = memo(
     withEmoji,
     withCountryNameButton,
     withCurrencyButton,
-    withCallingCodeButton
+    withCallingCodeButton,
+    buttonTextColor
   }: FlagWithSomethingProp) => {
     const { translation, getCountryName, getCountryCurrency } = useContext()
     const countryName =
@@ -61,7 +63,8 @@ const FlagWithSomething = memo(
         ) : null}
         {callingCode ? (
           <CountryText
-            style={styles.something}
+    buttonTextColor
+            style={[styles.something, {color: buttonTextColor}]}
           >{`+${callingCode}`}</CountryText>
         ) : null}
       </View>
@@ -74,7 +77,8 @@ interface FlagButtonProps {
   withCountryNameButton?: boolean
   withCurrencyButton?: boolean
   withCallingCodeButton?: boolean
-  countryCode: CountryCode
+  countryCode: CountryCode,
+  buttonTextColor?: string,
   onOpen?(): void
 }
 
@@ -84,7 +88,8 @@ export const FlagButton = ({
   withCallingCodeButton,
   withCurrencyButton,
   countryCode,
-  onOpen
+  onOpen,
+  buttonTextColor,
 }: FlagButtonProps) => {
   const withSomething =
     withCountryNameButton || withCallingCodeButton || withCurrencyButton
@@ -103,7 +108,8 @@ export const FlagButton = ({
               withEmoji,
               withCountryNameButton,
               withCallingCodeButton,
-              withCurrencyButton
+              withCurrencyButton,
+              buttonTextColor
             }}
           />
         ) : (
@@ -118,5 +124,6 @@ FlagButton.defaultProps = {
   withEmoji: Platform.OS === 'ios',
   withCountryNameButton: false,
   withCallingCodeButton: false,
-  withCurrencyButton: false
+  withCurrencyButton: false,
+  buttonTextColor: "#000"
 }

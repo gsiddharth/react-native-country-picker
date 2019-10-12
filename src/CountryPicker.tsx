@@ -49,6 +49,7 @@ interface CountryPickerProps {
   withFlag?: boolean
   withModal?: boolean
   visible?: boolean
+  buttonTextColor?: string
   renderFlagButton?(props: FlagButton['props']): ReactNode
   renderCountryFilter?(props: CountryFilter['props']): ReactNode
   onSelect(country: Country): void
@@ -75,6 +76,7 @@ export const CountryPicker = (props: CountryPickerProps) => {
     withCurrency,
     withFlag,
     withModal,
+    buttonTextColor,
     onClose: handleClose,
     onOpen: handleOpen
   } = props
@@ -115,7 +117,8 @@ export const CountryPicker = (props: CountryPickerProps) => {
     withCurrencyButton,
     countryCode,
     renderFlagButton: renderButton,
-    onOpen
+    onOpen,
+    buttonTextColor
   }
   useEffect(() => {
     const countries = getCountries(
